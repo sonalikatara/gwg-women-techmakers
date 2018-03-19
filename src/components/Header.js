@@ -3,13 +3,13 @@ import {getCity} from '../services/geolocation.js';
 import {getWeather} from '../services/weather.js';
 
 export default class HeaderContainer extends Component {
-  state = {
+ state = {
   };
 
   getMyLocation = () => {
     const {handleLocationChange} = this.props;
     const currentLocation = (position) =>{
-  
+
       const pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -21,21 +21,21 @@ export default class HeaderContainer extends Component {
       }).catch(function(err) {
         console.log('Error retrieving the current city: ', err);
       });
-  
+
       getWeather(pos.lat, pos.lng).then((weather) => {
         this.setState({currentWeather: weather})
       }).catch(function(err){
         console.log('Error retrieving the current weather: ', err);
-      })  
+      })
     }
-  
+
     // Ask user for permission to use location services
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(currentLocation);
-    } else {    
-      alert('Sorry your browser doesn\'t support the Geolocation API');    
+    } else {
+      alert('Sorry your browser doesn\'t support the Geolocation API');
     }
-  
+
   }
 
   componentWillMount() {

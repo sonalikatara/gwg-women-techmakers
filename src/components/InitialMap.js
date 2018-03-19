@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 class MapContainer extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+
+    }
+  }
+
   onGoogleMapLoad = map => {
     this.map = map;
+    console.log('new center ' + JSON.stringify(this.props.pos));
   }
 
   render() {
@@ -35,5 +43,6 @@ class MapContainer extends Component {
 
 export default GoogleApiWrapper({
   apiKey: (process.env.REACT_APP_GKEY),
-  libraries: ['places']
+  libraries: ['places'],
+  version:'3.25'
 })(MapContainer)

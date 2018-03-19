@@ -13,8 +13,8 @@ class App extends Component {
     this.state = {
       places: ["place1", "place2"],
       searchTerm: 'food',
-      mapCenter: {lat: 40.854885,
-                  lng: -88.081807}
+      pos: {},
+
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -27,8 +27,9 @@ class App extends Component {
   }
 
   handleLocationChange = (pos) => {
+    console.log("location change " + JSON.stringify(pos))
     this.setState({
-      pos
+      pos: pos
     })
   }
 
@@ -48,24 +49,25 @@ class App extends Component {
 /* The original css style names "App container", "row", "column column-75", "column column-25" */
   render() {
     //  <Sidebar places={this.state.places}/>
+    /*<div className="map">
+                    <MapContainer pos={this.state.pos} searchTerm={this.state.searchTerm} />
+                    </div>*/
     return (
 
       <div className="fullContainer">
-        <HeaderContainer handleLocationChange={this.handleLocationChange}/>
+        <HeaderContainer handleLocationChange={this.handleLocationChange} {...this.state}/>
           <div className="contentContainer">
               <div className="searchContainer">
               <Search submit={this.handleSubmit} input={this.handleChange} />
-              </div>  
+              </div>
               <div className="mapContainer">
-                    <div className="map">
-                    <MapContainer pos={this.state.pos} searchTerm={this.state.searchTerm} />
-                    </div>
+
                     <div className="mapDescription">
                     The Description
                     </div>
                     <div className="mapPlaces">
-                    <Container {...this.state} />
-                    </div>               
+                    <Container pos={this.state.pos} {...this.state} />
+                    </div>
                </div>
            </div>
            <div className="footer"> footer </div>
