@@ -11,10 +11,11 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      places: ["place1", "place2"],
-      searchTerm: 'food',
+      places: [],
+      searchTerm: '',
       pos: {},
-
+      query: '',
+      showContainer: false
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,19 +24,26 @@ class App extends Component {
 
   handleChange(event) {
     console.log(event.target.value)
-    this.setState({searchTerm: event.target.value})
+    this.setState({query: event.target.value})
+
   }
 
   handleLocationChange = (pos) => {
     console.log("location change " + JSON.stringify(pos))
     this.setState({
-      pos: pos
+      pos: pos,
+      showContainer: true
     })
   }
 
   handleSubmit() {
+
+    //if(this.state.showContainer == true){
+      this.setState({searchTerm: this.state.query})
+    //}
     console.log("submitted word")
     console.log(this.state.searchTerm)
+
   }
 
  /* componentDidMount(){
@@ -49,11 +57,12 @@ class App extends Component {
 /* The original css style names "App container", "row", "column column-75", "column column-25" */
   render() {
     //  <Sidebar places={this.state.places}/>
-    /*<div className="map">
-                    <MapContainer pos={this.state.pos} searchTerm={this.state.searchTerm} />
-                    </div>*/
+    /*
+      <div className="map">
+                      <MapContainer pos={this.state.pos} searchTerm={this.state.searchTerm} />
+                    </div>
+    */
     return (
-
       <div className="fullContainer">
         <HeaderContainer handleLocationChange={this.handleLocationChange} {...this.state}/>
           <div className="contentContainer">
@@ -61,7 +70,6 @@ class App extends Component {
               <Search submit={this.handleSubmit} input={this.handleChange} />
               </div>
               <div className="mapContainer">
-
                     <div className="mapDescription">
                     The Description
                     </div>
@@ -71,7 +79,6 @@ class App extends Component {
                </div>
            </div>
            <div className="footer"> footer </div>
-
       </div>
     );
   }

@@ -16,7 +16,6 @@ class MapContainer extends Component {
 
   render() {
     const containerStyle = {position: 'relative', width: '100%', height:'600px'}
-
     const {pos} = this.props;
 
     if(!this.props.loaded){
